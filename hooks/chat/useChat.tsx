@@ -108,7 +108,7 @@ const useChat = () => {
 
         if (user) {
           const data = await Conversation.getAdminConversation(user.id, token);
-          if (data.length > 0) {
+          if (data.length > 0 && typeof data === "object") {
             setConversations(data);
             setLoading(false);
           }
