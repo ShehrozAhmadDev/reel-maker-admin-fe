@@ -18,6 +18,11 @@ interface IArrvalMessage {
   image?: string;
 }
 
+interface IFullConversation {
+  members: { fullName: string; email: string; _id: string }[];
+  _id: string;
+}
+
 const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || "ws://localhost:4000";
 
 const useChat = () => {
@@ -28,6 +33,7 @@ const useChat = () => {
   const [arrivalMessage, setArrivalMessage] = useState<IArrvalMessage | null>(
     null
   );
+  const [conversations, setConversations] = useState<IFullConversation[]>([]);
   const [loading, setLoading] = useState(false);
   const { user } = useAppSelector((state) => state.userReducer.value);
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -59,6 +65,14 @@ const useChat = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleConvoClick = (item: IFullConversation) => {
+    const trimmedConvo: IConversation = {
+      _id: item._id,
+      members: item.members.map((member) => member._id),
+    };
+    setCurrentChat(trimmedConvo);
   };
 
   useEffect(() => {
@@ -93,9 +107,9 @@ const useChat = () => {
         const token = Cookie.get("token");
 
         if (user) {
-          const data = await Conversation.getUserConversation(user.id, token);
+          const data = await Conversation.getAdminConversation(user.id, token);
           if (data.length > 0) {
-            setCurrentChat(data[0]);
+            setConversations(data);
             setLoading(false);
           }
         }
@@ -105,7 +119,7 @@ const useChat = () => {
     };
 
     getConversationWithAdmin();
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -147,10 +161,13 @@ const useChat = () => {
     loading,
     message,
     messages,
+    conversations,
+    currentChat,
     scrollRef,
     setMessage,
     handleImageChange,
     handleSendClick,
+    handleConvoClick,
   };
 };
 
