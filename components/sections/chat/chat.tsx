@@ -36,7 +36,7 @@ const Chat = () => {
               } rounded-lg cursor-pointer`}
               onClick={() => handleConvoClick(conversation)}
             >
-              <p className="text-lg font-bold text-white">
+              <p className="text-base font-bold text-white">
                 {user && conversation.members && (
                   <>
                     {
@@ -69,7 +69,7 @@ const Chat = () => {
                     ref={scrollRef}
                   >
                     <div
-                      className={`flex flex-col w-[450px] ${
+                      className={`flex flex-col w-[400px] ${
                         msg.senderId === user?.id
                           ? `bg-purple-500`
                           : `bg-gray-200`
@@ -102,7 +102,7 @@ const Chat = () => {
                             : "text-gray-500"
                         }`}
                       >
-                        {moment(msg.createdAt).format("DD-MM-YY hh:mm A")}
+                        {moment(msg.createdAt).format("MMM DD, YY hh:mm A")}
                       </p>
                     </div>
                   </div>
