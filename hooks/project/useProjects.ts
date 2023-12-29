@@ -1,26 +1,24 @@
+import Project from "@/services/project";
 import React, { useEffect, useState } from "react";
+import Cookie from "js-cookie";
 
+
+interface IUser{
+  fullName: string;
+  email: string;
+  password: string;
+  role: string;
+}
 interface IProjects {
   _id: string | number;
   title: string;
   link: string;
   description: string;
+  createdBy: IUser;
+  createdAt: string | Date;
+  updatedAt: string | Date;
 }
 
-const projectsData: IProjects[] = [
-  {
-    _id: 1,
-    title: "Project 1",
-    link: "project1.com",
-    description: "lorem espem",
-  },
-  {
-    _id: 2,
-    title: "Project 2",
-    link: "project2.com",
-    description: "lorem espem",
-  },
-];
 
 export default function useProjects() {
   const [loading, setLoading] = useState(false);
@@ -32,11 +30,22 @@ export default function useProjects() {
     setCurrentProject(item);
   };
 
+  const getAllProjects = async()=>{
+    const token = Cookie.get("token");
+    try{
+      setLoading(true);
+    const data = await Project.getAllProjects(token)
+    setProjects(data);
+    setLoading(false);
+  }catch(error){
+    console.error(error)
+  }
+  }
+
   useEffect(() => {
-    setProjects(projectsData);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    getAllProjects()
+    // setProjects(projectsData);
+   
   }, []);
 
   return { loading, projects, currentProject, handleProjectClick };

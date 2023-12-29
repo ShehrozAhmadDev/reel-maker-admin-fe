@@ -1,4 +1,6 @@
 import useProjects from "@/hooks/project/useProjects";
+import moment from "moment";
+import parse from "html-react-parser";
 
 const ListProjects = () => {
   const { loading, projects, currentProject, handleProjectClick } =
@@ -28,9 +30,13 @@ const ListProjects = () => {
             >
               <span>
                 <p className="text-lg font-bold text-white">{project.title}</p>
-                <p className="text-xs font-bold text-white">by user1</p>
+                <p className="text-xs font-bold text-white">
+                  by {project.createdBy.fullName}
+                </p>
               </span>
-              <p className="text-xs text-white/[.50]">Nov 10,23 - Saturday</p>
+              <p className="text-xs text-white/[.50]">
+                {moment(project.createdAt).format("DD MM YYYY")}
+              </p>
             </div>
           ))}
         </div>
@@ -42,7 +48,8 @@ const ListProjects = () => {
               <div className="h-[calc(100vh-190px)] overflow-y-auto p-4 text-white">
                 <h1>Title: {currentProject?.title}</h1>
                 <p>Link: {currentProject?.link}</p>
-                <p>Description: {currentProject?.description}</p>
+                <p>Description: </p>
+                <div>{parse(currentProject?.description)}</div>
               </div>
             )}
           </div>
