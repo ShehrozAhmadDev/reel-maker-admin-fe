@@ -45,11 +45,21 @@ const ListProjects = () => {
             {loading ? (
               <p className="text-white font-bold my-2">Loading....</p>
             ) : (
-              <div className="h-[calc(100vh-190px)] overflow-y-auto p-4 text-white">
-                <h1>Title: {currentProject?.title}</h1>
-                <p>Link: {currentProject?.link}</p>
-                <p>Description: </p>
-                <div>{parse(currentProject?.description)}</div>
+              <div className="h-[calc(100vh-190px)] overflow-y-auto p-4 text-white ">
+                <span className="flex space-x-2 items-center text-lg">
+                  <h1 className="text-xl font-bold">Title: </h1>
+                  <p>{currentProject?.title}</p>
+                </span>
+                <span className="flex space-x-2 items-center text-lg">
+                  <h1 className="text-xl font-bold">Link: </h1>
+                  <p> {currentProject?.link}</p>
+                </span>
+                <span className="items-center text-lg">
+                  <h1 className="text-xl font-bold">Description: </h1>
+                  <div className="ml-4">
+                    {parse(currentProject?.description)}
+                  </div>
+                </span>
               </div>
             )}
           </div>
