@@ -18,12 +18,15 @@ const Chat = () => {
     handleConvoClick,
   } = useChat();
 
-  console.log(conversations);
   return (
     <div className="w-full">
       <h2 className="text-2xl font-bold mb-4 text-white">Chat</h2>
       <div className="flex gap-5">
-        <div className="w-[20%] flex flex-col gap-2">
+        <div
+          className={`h-[calc(100vh-150px)] overflow-y-auto ${
+            currentChat ? " w-[20%]" : "w-[80%]"
+          } flex flex-col gap-2 transition-all duration-300`}
+        >
           {conversations?.map((conversation) => (
             <div
               className={`p-3 border-[1px] border-white ${
@@ -51,6 +54,8 @@ const Chat = () => {
           <div className="bg-transparent border border-white/[.20] rounded-lg shadow-md w-full">
             {loading ? (
               <p className="text-white font-bold my-2">Loading....</p>
+            ) : messages.length === 0 ? (
+              <p className="text-white font-bold my-2 p-4">No chat to show</p>
             ) : (
               <div className="h-[calc(100vh-190px)] overflow-y-auto p-4 ">
                 {messages?.map((msg, index) => (

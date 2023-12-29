@@ -41,6 +41,14 @@ const Sidebar = ({ selectedTab, setSelectedTab }: SidebarProps) => {
       </div>
       <div
         className={`cursor-pointer mb-6 hover:text-yellow-400 ${
+          selectedTab === "project" ? "text-yellow-400" : ""
+        }`}
+        onClick={() => setSelectedTab("project")}
+      >
+        Projects
+      </div>
+      <div
+        className={`cursor-pointer mb-6 hover:text-yellow-400 ${
           selectedTab === "settings" ? "text-yellow-400" : ""
         }`}
         onClick={() => setSelectedTab("settings")}
