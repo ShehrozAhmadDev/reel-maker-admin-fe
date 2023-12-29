@@ -29,13 +29,15 @@ const ListProjects = () => {
               onClick={() => handleProjectClick(project)}
             >
               <span>
-                <p className="text-lg font-bold text-white">{project.title}</p>
+                <p className="text-base font-bold text-white">
+                  {project.title}
+                </p>
                 <p className="text-xs font-bold text-white">
                   by {project.createdBy.fullName}
                 </p>
               </span>
               <p className="text-xs text-white/[.50]">
-                {moment(project.createdAt).format("DD MM YYYY")}
+                {moment(project.createdAt).format("MMM DD, YY")}
               </p>
             </div>
           ))}
