@@ -9,7 +9,7 @@ const ListProjects = () => {
       <h2 className="text-2xl font-bold mb-4 text-white">Chat</h2>
       <div className="flex gap-5">
         <div
-          className={`${
+          className={`h-[calc(100vh-150px)] overflow-y-auto pr-5 ${
             currentProject ? " w-[20%]" : "w-[80%]"
           } flex flex-col gap-2 transition-all duration-300 `}
         >
