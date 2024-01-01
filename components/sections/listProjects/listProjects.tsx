@@ -5,10 +5,10 @@ import parse from "html-react-parser";
 const ListProjects = () => {
   const { loading, projects, currentProject, handleProjectClick } =
     useProjects();
-
+  console.log({ projects });
   return (
-    <div className="w-full">
-      <h2 className="text-2xl font-bold mb-4 text-white">Chat</h2>
+    <div className="w-full text-white">
+      <h2 className="text-2xl font-bold mb-4 text-white">Projects</h2>
       <div className="flex gap-5">
         <div
           className={`h-[calc(100vh-150px)] overflow-y-auto pr-5 ${
