@@ -17,8 +17,9 @@ const LoginForm = () => {
     e.preventDefault();
     Login.postLogin(email, password)
       .then((data) => {
-        console.log({ data });
-        if (data?.status === 200) {
+        if (data?.role !== "admin") {
+          toast.error("This isn't admin acount");
+        } else if (data?.status === 200 && data?.role === "admin") {
           Cookie.set("token", data?.token);
           Cookie.set("role", data?.role);
           dispatch(

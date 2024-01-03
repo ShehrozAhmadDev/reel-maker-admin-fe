@@ -16,7 +16,7 @@ export default function middleware(req: NextRequest) {
     verify &&
     verify.value &&
     role.value === "admin" &&
-    pathname.startsWith("/login")
+    (pathname.startsWith("/login") || pathname === "/")
   ) {
     return NextResponse.redirect(new URL("/dashboard", req?.url));
   }

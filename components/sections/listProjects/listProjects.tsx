@@ -1,11 +1,12 @@
 import useProjects from "@/hooks/project/useProjects";
 import moment from "moment";
 import parse from "html-react-parser";
+import { useState } from "react";
 
 const ListProjects = () => {
   const { loading, projects, currentProject, handleProjectClick } =
     useProjects();
-  console.log({ projects });
+
   return (
     <div className="w-full text-white">
       <h2 className="text-2xl font-bold mb-4 text-white">Projects</h2>
@@ -15,32 +16,38 @@ const ListProjects = () => {
             currentProject ? " w-[20%]" : "w-[80%]"
           } flex flex-col gap-2 transition-all duration-300 `}
         >
-          {projects?.map((project) => (
-            <div
-              className={`flex ${
-                currentProject
-                  ? "flex-col"
-                  : "flex-row justify-between items-end"
-              }  p-3 border-[1px] border-white ${
-                project?._id === currentProject?._id
-                  ? "bg-white/[.30]"
-                  : "bg-transparent"
-              } rounded-lg cursor-pointer`}
-              onClick={() => handleProjectClick(project)}
-            >
-              <span>
-                <p className="text-base font-bold text-white">
-                  {project.title}
+          {loading ? (
+            <p className="text-white font-bold my-2">Loading....</p>
+          ) : projects?.length === 0 ? (
+            <p className="text-white font-bold my-2 p-4">No Projects to show</p>
+          ) : (
+            projects?.map((project) => (
+              <div
+                className={`flex ${
+                  currentProject
+                    ? "flex-col"
+                    : "flex-row justify-between items-end"
+                }  p-3 border-[1px] border-white ${
+                  project?._id === currentProject?._id
+                    ? "bg-white/[.30]"
+                    : "bg-transparent"
+                } rounded-lg cursor-pointer`}
+                onClick={() => handleProjectClick(project)}
+              >
+                <span>
+                  <p className="text-base font-bold text-white">
+                    {project.title}
+                  </p>
+                  <p className="text-xs font-bold text-white">
+                    by {project?.createdBy?.fullName}
+                  </p>
+                </span>
+                <p className="text-xs text-white/[.50]">
+                  {moment(project.createdAt).format("MMM DD, YY")}
                 </p>
-                <p className="text-xs font-bold text-white">
-                  by {project.createdBy.fullName}
-                </p>
-              </span>
-              <p className="text-xs text-white/[.50]">
-                {moment(project.createdAt).format("MMM DD, YY")}
-              </p>
-            </div>
-          ))}
+              </div>
+            ))
+          )}
         </div>
         {currentProject && (
           <div className="bg-transparent border border-white/[.20] rounded-lg shadow-md w-full">
