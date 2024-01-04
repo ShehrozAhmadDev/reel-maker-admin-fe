@@ -27,28 +27,32 @@ const Chat = () => {
             currentChat ? " w-[20%]" : "w-[80%]"
           } flex flex-col gap-2 transition-all duration-300`}
         >
-          {conversations?.map((conversation) => (
-            <div
-              className={`p-3 border-[1px] border-white ${
-                currentChat?._id === conversation._id
-                  ? "bg-white/[.30]"
-                  : "bg-transparent"
-              } rounded-lg cursor-pointer`}
-              onClick={() => handleConvoClick(conversation)}
-            >
-              <p className="text-base font-bold text-white">
-                {user && conversation.members && (
-                  <>
-                    {
-                      conversation?.members.filter(
-                        (member) => member._id !== user.id
-                      )[0].fullName
-                    }
-                  </>
-                )}
-              </p>
-            </div>
-          ))}
+          {conversations.length === 0 ? (
+            <p className="font-bold text-white p-4">No Conversations to show</p>
+          ) : (
+            conversations?.map((conversation) => (
+              <div
+                className={`p-3 border-[1px] border-white ${
+                  currentChat?._id === conversation._id
+                    ? "bg-white/[.30]"
+                    : "bg-transparent"
+                } rounded-lg cursor-pointer`}
+                onClick={() => handleConvoClick(conversation)}
+              >
+                <p className="text-base font-bold text-white">
+                  {user && conversation.members && (
+                    <>
+                      {
+                        conversation?.members.filter(
+                          (member) => member._id !== user.id
+                        )[0].fullName
+                      }
+                    </>
+                  )}
+                </p>
+              </div>
+            ))
+          )}
         </div>
         {currentChat && (
           <div className="bg-transparent border border-white/[.20] rounded-lg shadow-md w-full">

@@ -5,13 +5,9 @@ export default function middleware(req: NextRequest) {
   let verify = req?.cookies?.get("token");
   const { pathname } = req.nextUrl;
 
-  if (!verify && pathname === "/") {
+  if (!verify && (pathname === "/" || pathname.startsWith("/dashboard"))) {
     return NextResponse.redirect(new URL("/login", req?.url));
   }
-  if (!verify && pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/login", req?.url));
-  }
-
   if (
     verify &&
     verify.value &&

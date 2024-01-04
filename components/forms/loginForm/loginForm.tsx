@@ -17,16 +17,18 @@ const LoginForm = () => {
     e.preventDefault();
     Login.postLogin(email, password)
       .then((data) => {
-        if (data?.role !== "admin") {
+        if (data?.status === 200 && data?.user?.role !== "admin") {
           toast.error("This isn't admin acount");
-        } else if (data?.status === 200 && data?.role === "admin") {
+        } else if (data?.status === 200 && data?.user?.role === "admin") {
           Cookie.set("token", data?.token);
-          Cookie.set("role", data?.role);
+          Cookie.set("role", data?.user?.role);
           dispatch(
             setUser({
-              id: data._id,
-              fullName: data?.fullName,
-              email: data?.email,
+              id: data?.user?._id,
+              fullName: data?.user?.fullName,
+              email: data?.user?.email,
+              stripeId: data?.user?.stripeId,
+              subscriptionId: data?.user?.subscriptionId,
             })
           );
           toast.success("Logged In...");

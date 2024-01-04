@@ -21,12 +21,7 @@ body {
   --background-start-rgb: 128, 0, 128; /* Background start color in RGB */
   --background-end-rgb: 255, 192, 203; /* Background end color in RGB */
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgb(var(--background-end-rgb)) 50%,
-    rgb(var(--background-start-rgb))
-  );
+  
 }
 
 .gradient-text {

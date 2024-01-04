@@ -1,3 +1,4 @@
+import { setUser } from "@/redux/features/user-slice";
 import Cookie from "js-cookie";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -7,6 +8,8 @@ import {
 } from "react-icons/io5";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { TbLogout2 } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 interface SidebarProps {
   selectedTab: string;
@@ -15,13 +18,15 @@ interface SidebarProps {
 
 const Sidebar = ({ selectedTab, setSelectedTab }: SidebarProps) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
+    dispatch(setUser(null));
     Cookie.remove("token");
     Cookie.remove("role");
+    toast.success("logging out...");
     router.refresh();
   };
-
   return (
     <div className="bg-[#111114] text-white h-screen w-full p-6 text-lg">
       <div
