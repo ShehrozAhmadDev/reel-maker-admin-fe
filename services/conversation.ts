@@ -25,21 +25,6 @@ const Conversation = {
       .then((res) => res.data)
       .catch((error) => toast.error(error?.response?.data?.message));
   },
-  createNewConversation: async (userId: string, token?: string) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const body = {
-      senderId: userId,
-      receiverId: "6593b60fd2cb3f4a49180156",
-    };
-    return await axios
-      .post(`${baseUrl}/conversation/`, body, config)
-      .then((res) => res.data)
-      .catch((error) => toast.error(error?.response?.data?.message));
-  },
 };
 
 export default Conversation;
